@@ -1,0 +1,38 @@
+{
+  "extends": [
+    // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "parser": "babel-eslint"
+  },
+  "rules": {
+    "import/order": "off",
+    "eslint@typescript-eslint/no-non-null-assertion": "off",
+  },
+  "overrides": [
+    {
+      "files": ["./src/**/*.ts"],
+      "excludedFiles": ["./**/*.spec.ts", "./node_modules/**/*"],
+      "plugins": ["@typescript-eslint", "file-progress", "prettier"],
+      "rules": {
+        "eslint@typescript-eslint/no-non-null-assertion": "off",
+        "prettier/prettier": "warn",
+        "max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
+        "comma-dangle": [
+          "error",
+          {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "ignore"
+          }
+        ]
+      }
+    }
+  ]
+}

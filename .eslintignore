@@ -1,0 +1,10 @@
+/.cache-loader
+/bower_components
+/node_modules
+/demo
+/ci-scripts
+/test
+/webpack
+/build-gateway
+/build
+/gateway/deploy
