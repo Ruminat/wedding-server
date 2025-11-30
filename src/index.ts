@@ -44,6 +44,14 @@ app.post("/api/wedding/answer", (req, res) => {
   }
 });
 
+app.get("/api/ping", (req, res) => {
+  try {
+    return res.json({ answer: "pong" });
+  } catch (error) {
+    return res.status(500).json({ error: "Couldn't answer pong" });
+  }
+});
+
 app.get("/api/wedding/answers", (req, res) => {
   try {
     if (!isSecretValid(req)) {
