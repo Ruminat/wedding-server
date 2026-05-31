@@ -2,6 +2,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import express from "express";
 import { addWeddingAnswer, clearWeddingAnswers, getWeddingAnswers, TWeddingAnswer } from "./db";
+import { renderAnswersHtml, renderForbiddenHtml } from "./lib/answersHtml";
 import { createDataDirIfMissing } from "./lib/FS/utils";
 import { checkNodeFeatures } from "./lib/NodeJS/utils";
 
@@ -66,6 +67,20 @@ app.get("/api/wedding/answers", (req, res) => {
   }
 });
 
+app.get("/api/wedding/answers-html", (req, res) => {
+  try {
+    if (!isSecretValid(req)) {
+      return res.status(403).type("html").send(renderForbiddenHtml());
+    }
+
+    return res.type("html").send(renderAnswersHtml(getWeddingAnswers()));
+  } catch (error) {
+    console.error("Error rendering answers HTML:", error);
+
+    return res.status(500).json({ error: "Couldn't get answers" });
+  }
+});
+
 app.post(`/api/wedding/clear`, (req, res) => {
   try {
     if (!isSecretValid(req)) {
@@ -94,6 +109,7 @@ app.listen(PORT, () => {
   console.log(`- POST ${HOST}:${PORT}/api/wedding/answer`);
   console.log(`- POST ${HOST}:${PORT}/api/wedding/clear`);
   console.log(`- GET  ${HOST}:${PORT}/api/wedding/answers`);
+  console.log(`- GET  ${HOST}:${PORT}/api/wedding/answers-html`);
 });
 
 function isSecretValid(req: express.Request) {

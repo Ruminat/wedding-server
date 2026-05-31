@@ -69,6 +69,13 @@ Request body:
 GET /api/wedding/answers?secret_key=your-secret-key
 ```
 
+### Get All Answers (HTML)
+```http
+GET /api/wedding/answers-html?secret_key=your-secret-key
+```
+
+Returns a minimal HTML page with the same data as `/answers`, grouped by guest name.
+
 ### Clear All Answers
 ```http
 POST /api/wedding/clear?secret_key=your-secret-key
@@ -76,4 +83,4 @@ POST /api/wedding/clear?secret_key=your-secret-key
 
 ## Security
 
-Protected endpoints (`/answers` and `/clear`) require a `secret_key` query parameter matching the one in `.env` file.
+Protected endpoints (`/answers`, `/answers-html`, and `/clear`) require a `secret_key` query parameter matching the one in `.env` file.
